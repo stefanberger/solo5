@@ -35,7 +35,7 @@ BINDINGS.genode := $(TOPDIR)/bindings/genode/solo5.lib.so
 
 %.o: %.c ../../include/solo5/solo5.h
 	@echo "CC $<"
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	$(CC) -O0 $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 %.hvt: %.o $(LDS.hvt) $(BINDINGS.hvt)
 	@echo "LD $@"
