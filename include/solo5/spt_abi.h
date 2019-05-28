@@ -59,6 +59,7 @@ struct spt_boot_info {
     uint64_t kernel_end;                /* Address of end of kernel */
     const char * cmdline;               /* Address of command line (C string) */
     uint64_t tls_base;                  /* Address of TLS base */
+    uint32_t tls_size;                  /* Size of the TLS */
     struct spt_block_info blocki;
     struct spt_net_info neti;
 };
@@ -86,6 +87,8 @@ struct spt_boot_info {
 #if defined (__powerpc64__)
 # define TLS_MIN_SIZE (32 * 1024)
 # define TLS_NEGATIVE_EXTENT 0x8000
+# define TLS_TCB_SIZE        0x7000
+# define TLS_LIBINFO_SIZE    0x1000
 #endif
 
 #endif /* SPT_ABI_H */

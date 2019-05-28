@@ -148,14 +148,20 @@ struct spt *spt_init(size_t mem_size)
     return spt;
 }
 
-void spt_bi_init(struct spt *spt, uint64_t p_end, char **cmdline)
+void spt_bi_init(struct spt *spt, uint64_t p_end, char **cmdline,
+                 uint32_t tls_size)
 {
     spt->bi = (struct spt_boot_info *)(spt->mem + SPT_BOOT_INFO_BASE);
     memset(spt->bi, 0, sizeof (struct spt_boot_info));
     spt->bi->cmdline = (char *)spt->mem + SPT_CMDLINE_BASE;
 #if defined (__powerpc64__)
-    spt->mem_size -= TLS_MIN_SIZE;
+    if (tls_size < TLS_TCB_SIZE)
+        tls_size = TLS_LIBINFO_SIZE + TLS_TCB_SIZE;
+    else
+        tls_size += TLS_LIBINFO_SIZE;
+    spt->mem_size -= tls_size;
     spt->bi->tls_base = (uint64_t)spt->mem + spt->mem_size;
+    spt->bi->tls_size = tls_size;
 #endif
     spt->bi->mem_size = spt->mem_size;
     spt->bi->kernel_end = p_end;
