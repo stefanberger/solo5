@@ -52,7 +52,7 @@ cc_is_gcc()
 
 gcc_check_option()
 {
-    ${CC} "$@" -x c -c -o /dev/null - <<EOM >/dev/null 2>&1
+    ${CC} "$@" -x c -c -o /dev/null - <<EOM
 int main(int argc, char *argv[])
 {
     return 0;
