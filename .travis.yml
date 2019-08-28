@@ -9,5 +9,11 @@ script: ./configure.sh && make && tests/run-tests.sh
 matrix:
   include:
     - os: linux
-    - os: linux-ppc64le
+    - env: CC=gcc-7
+      os: linux-ppc64le
       dist: bionic
+      sudo: required
+      before_script: 
+        - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+        - sudo apt-get -y update
+        - sudo apt-get -y install gcc-7
