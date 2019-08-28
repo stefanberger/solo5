@@ -6,3 +6,8 @@ addons:
             - qemu-system-x86
             - libseccomp-dev
 script: ./configure.sh && make && tests/run-tests.sh
+matrix:
+  include:
+    - os: linux
+    - os: linux-ppc64le
+      dist: bionic
